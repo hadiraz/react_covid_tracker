@@ -1,0 +1,212 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+#root{
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+    padding: 2.5rem;
+}
+main{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+body{
+    background-color: #f5f6fa;
+}
+/* app-header start */
+header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding:0 0.5rem;
+    margin-bottom: 1.2rem;
+}
+.app_header-left{
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: red;
+}
+.app_header_form-controller{
+    font-size: 0.8rem !important;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* app-header end */
+
+/* app-main started */
+
+.app_card-info-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.app_info-cards{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 33%;
+    min-height: 125px;
+    border-radius: 8px;
+    box-shadow: 1px 0 10px 0px #ccc;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    margin: 0.5rem;
+    background-color: #fff;
+}
+.app_info-cards:hover{
+    box-shadow: 1px 0 10px 0px #9a9a9a;
+    transform: translateY(4px);
+}
+.app_info-card-title{
+    color: #8e8e8e;
+    margin-bottom: 0;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+.app_info-card-number{
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin: 0.5rem 0.6rem;
+}
+.app_info-cards.red .app_info-card-number{
+    color: red;
+}
+.app_info-cards.orange .app_info-card-number{
+    color: orange;
+}
+.app_info-cards.green .app_info-card-number{
+    color: greenyellow;
+}
+.app_info-card-total{
+    color: #8e8e8e;
+    margin-top: 0;
+    font-size: 0.8rem;
+}
+.app_info-cards::after{
+    content: "" ;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+}
+.app_info-cards.red::after{
+    background: red;
+}
+.app_info-cards.orange::after{
+    background-color: orange;
+}
+.app_info-cards.green::after{
+    background-color: yellowgreen;
+}
+.app_map-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+/** app main ended */
+
+/** app aside started */
+aside{
+    display: flex;
+    flex-direction: column;
+    width: 19%;
+    margin-left: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 1px 0 10px 1px #dedede;
+    height: max-content;
+}
+.aside_table-container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.aside_table-container h4{
+    margin: 1rem 0.5rem;
+    font-size: 1.1rem;
+    color: #8a8a8a;
+    text-transform: capitalize;
+}
+/** app aside ended */
+
+/** app aside table started */
+
+.aside_table{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 250px;
+}
+.aside_table tr{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.8rem;    
+    padding: 0.3rem 0.5rem;
+    color: #434343;
+}
+.aside_table tr:nth-child(odd){
+    background-color: #f3f2f8;
+}
+/** app aside table ended */
+
+/** app aside graph started */
+
+.aside_graph-container{
+    display: flex;
+    width: 100%;
+    margin: 1rem 0;
+    flex-direction: column;
+}
+.aside_graph-container h3{
+    margin: 1rem 0.5rem;
+    font-size: 1.1rem;
+    color: #8a8a8a;
+    text-transform: capitalize;
+
+}
+/** app aside graph ended */
+
+/* media queries started */
+
+@media (max-width:990px){
+    #root{
+        flex-direction: column;
+    }
+    main{
+        width: 100%;
+        justify-content: center;
+    }
+    aside{
+        width: 100%;
+        margin-top : 3rem ;
+        justify-content:center ;
+        margin-left: 0;
+    }
+}
+
+@media (max-width:600px){
+    #root{
+        padding: 0.5rem;
+    }
+}
+
+/* media queries ended */
