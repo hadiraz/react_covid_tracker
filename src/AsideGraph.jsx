@@ -4,7 +4,7 @@ import {Chart as ChartJS , CategoryScale,LinearScale,PointElement , LineElement 
 import { Line } from 'react-chartjs-2';
 import { numeral } from "numeral" ;
 
-function AsideGraph() {
+function AsideGraph({caseTypeMain}) {
     ChartJS.register(
         CategoryScale,
         LinearScale,
@@ -15,20 +15,24 @@ function AsideGraph() {
         Legend ,
         Filler
       );
-    const [apiUrl , setApiUrl] = useState("");
     const [graphX , setGraphX] = useState([])
     const [graphY , setGraphY] = useState([])
-    
+    const [allData , setAllData] = useState([])
+    const [empty , setEmpty] = useState(0)
+
     const sortGraphData = (data) =>{
         let newCases ;
         const graphX = [] ;
         const graphY = [] ;
         for(let date in data){
-            if(newCases){
+            if(newCases !== 0 && data[date] !==0){
                 newCases = data[date] - newCases ;
-                graphX.push({x: date , y:newCases});
+                graphX.push(date);
                 graphY.push(newCases);
                 newCases = data[date];
+            }else{
+                graphX.push();
+                graphY.push();
             }
             newCases = data[date] ;
         }
@@ -36,80 +40,34 @@ function AsideGraph() {
     }
 
     useEffect(()=>{
-        const getGraphData = async()=>{
-            await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=100")
+        fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=100")
         .then( response => response.json())
         .then( data => {
-            const graphData = sortGraphData(data.cases);
+            const graphData = sortGraphData(data[caseTypeMain]);
                 setGraphX(graphData[0]);
                 setGraphY(graphData[1]);
-                console.log(graphData)
+                setAllData(data)
         })
-    }
-    getGraphData();
-
     },[])
 
-    // const options = {
-    //     legend: {
-    //       display: false,
-    //     },
-    //     elements: {
-    //       point: {
-    //         radius: 0,
-    //       },
-    //     },
-    //     maintainAspectRatio: false,
-    //     tooltips: {
-    //       mode: "index",
-    //       intersect: false,
-    //       callbacks: {
-    //         label: function (tooltipItem, data) {
-    //           return numeral(tooltipItem.value).format("+0,0");
-    //         },
-    //       },
-    //     },
-    //     scales: {
-    //       xAxes: [
-    //         {
-    //           type: "time",
-    //           time: {
-    //             format: "MM/DD/YY",
-    //             tooltipFormat: "ll",
-    //           },
-    //         },
-    //       ],
-    //       yAxes: [
-    //         {
-    //           gridLines: {
-    //             display: false,
-    //           },
-    //           ticks: {
-    //             // Include a dollar sign in the ticks
-    //             callback: function (value, index, values) {
-    //               return numeral(value).format("0a");
-    //             },
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   };
-
     useEffect(()=>{
-        console.log(graphX , 1)
-    },[graphX])
+        const graphData = sortGraphData(allData[caseTypeMain]);
+            setGraphX(graphData[0]);
+            setGraphY(graphData[1]);
+    },[caseTypeMain])
 
   return (
       <section className="aside_graph-container">
-          <h3>worldwide new cases</h3>
-            <Line data={{
-                // labels: "graphX" , 
+          <h3>worldwide new {caseTypeMain}</h3>
+          {
+              graphX.length > 0 ? <Line data={{
+                labels: graphX , 
 
                 datasets:[
                     {
-                label: "cases" ,
-                data : graphX ,
-                borderColor : "#CC1034" ,
+                label: caseTypeMain ,
+                data : graphY ,
+                borderColor : "rgba(204, 16, 52, 1)" ,
                 backgroundColor: "rgba(204, 16, 52, 0.5)",
                 fill : true , 
                 tension : 0.1 ,
@@ -118,7 +76,9 @@ function AsideGraph() {
         ]
             }}
            
-            />
+            /> : <h4>Sorry data not found !</h4>
+          }
+            
       </section>
   );
 }

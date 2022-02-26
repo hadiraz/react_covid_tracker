@@ -1,7 +1,7 @@
 import { FormControl , MenuItem, Select } from '@material-ui/core';
 import React , {useEffect, useState} from 'react';
 
-function Header({cardData}) {
+function Header({setCardData , cardData}) {
     const [countries , setCountries] = useState([]);
     const [selectedCountry , setSelectedCountry] = useState("worldwide");
     const apiUrlCountries = "https://disease.sh/v3/covid-19/countries" ;
@@ -15,10 +15,40 @@ function Header({cardData}) {
         const getCountryData = async() =>{
             await fetch(`${selectedCountry === "worldwide" ? apiUrlGlobal : `${apiUrlCountries}/${selectedCountry}`}`)
             .then(response => response.json())
-            .then(data => cardData({todayDeath:data.todayDeaths , newCases:data.todayCases , todayRecovered:data.todayRecovered, totalRecovered:data.recovered , totalDeaths:data.deaths, totalCases:data.cases ,name:selectedCountry}))
+            .then(data => checkData(data) )
         }
         getCountryData()
     },[selectedCountry])
+
+    const checkData = (allData) => {
+        if(selectedCountry === "worldwide"){
+            setCardData({
+                ...cardData , 
+                todayDeath:allData.todayDeaths , 
+                newCases:allData.todayCases , 
+                todayRecovered:allData.todayRecovered, 
+                totalRecovered:allData.recovered , 
+                totalDeaths:allData.deaths, 
+                totalCases:allData.cases ,
+                name:selectedCountry , 
+                lat : 32 ,
+                lng : 53
+                    })
+        }else{
+            setCardData({
+                ...cardData , 
+                todayDeath:allData.todayDeaths , 
+                newCases:allData.todayCases , 
+                todayRecovered:allData.todayRecovered, 
+                totalRecovered:allData.recovered , 
+                totalDeaths:allData.deaths, 
+                totalCases:allData.cases ,
+                name:selectedCountry , 
+                lat : allData.countryInfo.lat , 
+                lng: allData.countryInfo.long 
+                    })
+        }
+    }
 
     useEffect(()=>{
         const getData = async () => {
@@ -31,12 +61,11 @@ function Header({cardData}) {
                             iso2 : value.countryInfo.iso2
                         })
                     })
-
                     setCountries(countries) ;
                 })
         }
         getData();
-    },[])
+    },[] )
 
   return (
       <header>

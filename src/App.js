@@ -4,12 +4,12 @@ import Aside from './Aside';
 import Main from './Main';
 
 function App() {
-    
+    const [caseTypeMain , setCaseTypeMain] = useState("cases");
 
   return (
       <>
-      <Main/>
-      <Aside/>
+      <Main setCaseTypeMain={setCaseTypeMain} />
+      <Aside caseTypeMain={caseTypeMain}/>
       </>
   )
 }

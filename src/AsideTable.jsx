@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {sortData} from "./util";
+import numeral from 'numeral';
+import { v4 as uuidv4 } from 'uuid';
 function AsideTable() {
     const [tableData , setTableData] = useState([]) ;
     const apiUrlCountries = "https://disease.sh/v3/covid-19/countries" ;
@@ -15,7 +17,6 @@ function AsideTable() {
                 const sortedData = sortData(countriesData) ;
                 setTableData(sortedData) ;
             })
-            console.log(tableData);
         }
 
         getTableData();
@@ -30,14 +31,14 @@ function AsideTable() {
                     {
                         tableData.map(({name , cases} , index)=>{
                             return(
-                            <tr key={index}>
+                            <tr key={uuidv4()}>
                                 <td>
                                     <strong>
                                         {name}
                                     </strong>
                                 </td>
                                 <td>
-                                    {cases}
+                                    {numeral(cases).format("0,0")}
                                 </td>
                             </tr>
 

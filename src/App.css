@@ -10,7 +10,7 @@
     padding: 2.5rem;
 }
 main{
-    width: 80%;
+    width: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,13 +117,76 @@ header{
     align-items: center;
     margin-top: 1.5rem;
 }
+
+/* app map started */
+
+.map{
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0px #ccc;
+    background-color: white !important;
+    height: 350px;
+}
+
+.map .leaflet-control-container{
+    height: 100%;
+}
+.leaflet-popup-content{
+    margin: 1.2rem 0.5rem 0.5rem 0.5rem !important;
+}
+.popup-container{
+    min-width: 170px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.popup-top{
+    display: flex;
+    width: 100%;
+}
+.popup-bottom{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.popup-top img{
+    display: flex;
+    width: 100%;
+    border-radius: 8px;
+}
+.popup-country-list-data{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 100%;
+}
+.popup-country-list-data li{
+    align-items: flex-start;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.popup-country-list-data li p:first-child{
+    margin: 0.4rem 0.2rem 0 0 ;
+    text-transform: capitalize;
+}
+.popup-country-list-data li p:nth-child(2){
+    margin: 0.4rem 0.2rem 0 0 ;
+}
+/* app map ended */
+
 /** app main ended */
 
 /** app aside started */
 aside{
     display: flex;
     flex-direction: column;
-    width: 19%;
+    width: 24%;
     margin-left: 1rem;
     background-color: #fff;
     border-radius: 8px;
@@ -176,6 +239,9 @@ aside{
     margin: 1rem 0;
     flex-direction: column;
 }
+.aside_graph-container h4{
+    margin-left: 1rem;
+}
 .aside_graph-container h3{
     margin: 1rem 0.5rem;
     font-size: 1.1rem;
@@ -206,6 +272,12 @@ aside{
 @media (max-width:600px){
     #root{
         padding: 0.5rem;
+    }
+    .app_card-info-container{
+        flex-wrap: wrap;
+    }
+    .app_info-cards{
+        width: 100%;
     }
 }
 
